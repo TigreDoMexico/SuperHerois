@@ -16,7 +16,8 @@ namespace SuperHerois.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            return View();
+            var herois = _heroiRepository.ObterTodosHerois();
+            return View(herois);
         }
 
         [HttpGet]
@@ -53,6 +54,68 @@ namespace SuperHerois.Controllers
             }
 
             return View(heroi);
+        }
+
+        [HttpGet]
+        public IActionResult Editar(int? id)
+        {
+            if (id is null)
+            {
+                return BadRequest();
+            }
+
+            var heroi = _heroiRepository.ObterHeroi(id.GetValueOrDefault());
+            if (heroi is null)
+            {
+                return NotFound();
+            }
+
+            return View(heroi);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Editar(int id, [Bind] HeroiViewModel heroi)
+        {
+            if (id != heroi.Id)
+            {
+                return NotFound();
+            }
+            if (ModelState.IsValid)
+            {
+                _heroiRepository.AtualizarHeroi(id, heroi);
+                return RedirectToAction("Detalhes", new { Id = heroi.Id });
+            }
+            return View(heroi);
+        }
+
+        [HttpGet]
+        public IActionResult Deletar(int? id)
+        {
+            if (id == null)
+            {
+                return BadRequest();
+            }
+
+            var heroi = _heroiRepository.ObterHeroi(id.GetValueOrDefault());
+            if (heroi is null)
+            {
+                return NotFound();
+            }
+
+            return View(heroi);
+        }
+
+        [HttpPost, ActionName("Deletar")]
+        [ValidateAntiForgeryToken]
+        public IActionResult ConfirmarDelete(int? id)
+        {
+            if(id is not null)
+            {
+                _heroiRepository.DeletarHeroi(id.GetValueOrDefault());
+            }
+
+            return RedirectToAction("Index");
         }
     }
 }

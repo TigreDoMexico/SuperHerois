@@ -14,4 +14,8 @@
         <br />
         <strong>PODER:</strong> @Model?.Poder
     </p>
+
+    <a asp-controller="MeusHerois" asp-action="Editar" asp-route-id="@Model?.Id">Editar</a>
+    <a asp-controller="MeusHerois" asp-action="Deletar" asp-route-id="@Model?.Id">Deletar</a>
 }
+

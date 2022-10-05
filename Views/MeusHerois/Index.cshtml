@@ -1,6 +1,51 @@
-﻿@{
+﻿@model IEnumerable<SuperHerois.Models.ViewModels.HeroiViewModel>
+
+@{
     ViewData["Title"] = "Meus Herois";
 }
 
 <h1>Olá meu Herói</h1>
 
+<p>
+    <a asp-action="Criar">Criar Novo Heroi</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Poder)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model is not null)
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Poder)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Editar", "Editar", new { Id = item.Id }) |
+                        @Html.ActionLink("Detalhes", "Detalhes", new { Id = item.Id }) |
+                        @Html.ActionLink("Deletar", "Deletar", new { Id = item.Id })
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
