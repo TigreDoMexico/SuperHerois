@@ -1,4 +1,4 @@
-namespace SuperHerois.Models;
+namespace SuperHerois.Models.ViewModels;
 
 public class ErrorViewModel
 {

@@ -1,0 +1,17 @@
+﻿@model SuperHerois.Models.ViewModels.HeroiViewModel
+@{
+    ViewData["Title"] = "Detalhes - Meus Herois";
+}
+
+<h1>Detalhe meu Herói</h1>
+
+@if(Model is not null)
+{
+    <p>
+        <strong>NUMERO #</strong>@Model?.Id
+        <br />
+        <strong>NOME:</strong> @Model?.Nome
+        <br />
+        <strong>PODER:</strong> @Model?.Poder
+    </p>
+}
