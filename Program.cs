@@ -1,9 +1,12 @@
-using SuperHerois.Models.Repository;
+using SuperHerois.Configurations;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
-builder.Services.AddSingleton<IHeroiRepository, HeroiRepository>();
+
+builder.Services
+    .ConfigurarBancoDeDados(builder.Configuration)
+    .ConfigurarRepositorios();
 
 var app = builder.Build();
 
