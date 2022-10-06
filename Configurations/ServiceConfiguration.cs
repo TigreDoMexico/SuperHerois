@@ -6,11 +6,9 @@ namespace SuperHerois.Configurations;
 
 public static class ServiceConfiguration
 {
-    public static IServiceCollection ConfigurarBancoDeDados(this IServiceCollection service, IConfiguration config)
+    public static IServiceCollection ConfigurarBancoDeDados(this IServiceCollection service)
     {
-        service.AddDbContext<MariaDbContext>(options =>
-            options.UseMySQL(config.GetConnectionString("DefaultConnection")));
-
+        service.AddSingleton<IMariaDbContext, MariaDbContext>();
         return service;
     }
 

@@ -6,6 +6,12 @@ public class HeroiRepository : IHeroiRepository
 {
     private static int VALOR = 1;
     private List<HeroiViewModel> herois = new List<HeroiViewModel>();
+    private IMariaDbContext _dbContext;
+
+    public HeroiRepository(IMariaDbContext dbContext)
+    {
+        _dbContext = dbContext;
+    }
 
     public List<HeroiViewModel> ObterTodosHerois() =>
         new List<HeroiViewModel>(herois);
